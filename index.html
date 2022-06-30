@@ -1,0 +1,202 @@
+<!-- https://codepen.io/alvarotrigo/pen/abLgXYj -->
+
+<head>
+    <link rel="stylesheet" href="./static/css/theme.css">
+    <link rel="stylesheet" href="./static/css/custom.css">
+
+    <!-- Load jquery -->
+    <!-- <script src='//code.jquery.com/jquery-2.1.4.min.js'></script> -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+    <!-- Load bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+        crossorigin="anonymous"></script>
+
+
+    <!-- Load d3.js and the geo projection plugin -->
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+    <script>
+        d3v6 = d3
+        window.d3 = null
+    </script>
+    <script src="https://d3js.org/d3.v4.js"></script>
+    <script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>
+
+    <!-- Load Leaflet -->
+    <!-- <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.4/dist/leaflet.css" integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA==" crossorigin=""/> -->
+    <!-- <script src="https://unpkg.com/leaflet@1.3.4/dist/leaflet.js" integrity="sha512-nMMmRyTVoLYqjP9hrbed9S+FzjZHW5gY1TWCHA5ckwXZBadntCNs8kEqAWdrb9O7rxbCaA4lKTIWjDXZxflOcA==" crossorigin=""></script> -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+        integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+        crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+        integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+        crossorigin=""></script>
+
+    <!--Load Papa Parse-->
+    <script src="https://cdn.jsdelivr.net/npm/papaparse@5.3.0/papaparse.min.js"></script>
+
+    <!--Load datatable -->
+
+    <link href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css" rel="stylesheet">
+    <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+
+</head>
+
+<body>
+    <h1>Ubike usage visualization</h1>
+    <div class="tabs">
+
+        <!-- Tab 列表 Start -->
+        <input type="radio" id="tab1" name="tab-control" checked>
+        <input type="radio" id="tab2" name="tab-control">
+        <input type="radio" id="tab3" name="tab-control">
+        <input type="radio" id="tab4" name="tab-control">
+
+        <ul class="tabs-list">
+            <li title="Introduction" class="active"><label for="tab1" role="button"><svg viewBox="0 0 24 24">
+                        <path
+                            d="M11,9H13V7H11M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M11,17H13V11H11V17Z" />
+                    </svg><br><span>Station Info</span></label>
+            </li>
+
+            <li title="Station"><label for="tab2" role="button"><svg viewBox="0 0 24 24">
+                        <!-- <path d="M2,10.96C1.5,10.68 1.35,10.07 1.63,9.59L3.13,7C3.24,6.8 3.41,6.66 3.6,6.58L11.43,2.18C11.59,2.06 11.79,2 12,2C12.21,2 12.41,2.06 12.57,2.18L20.47,6.62C20.66,6.72 20.82,6.88 20.91,7.08L22.36,9.6C22.64,10.08 22.47,10.69 22,10.96L21,11.54V16.5C21,16.88 20.79,17.21 20.47,17.38L12.57,21.82C12.41,21.94 12.21,22 12,22C11.79,22 11.59,21.94 11.43,21.82L3.53,17.38C3.21,17.21 3,16.88 3,16.5V10.96C2.7,11.13 2.32,11.14 2,10.96M12,4.15V4.15L12,10.85V10.85L17.96,7.5L12,4.15M5,15.91L11,19.29V12.58L5,9.21V15.91M19,15.91V12.69L14,15.59C13.67,15.77 13.3,15.76 13,15.6V19.29L19,15.91M13.85,13.36L20.13,9.73L19.55,8.72L13.27,12.35L13.85,13.36Z" /> -->
+                        <path
+                            d="M10,1.375c-3.17,0-5.75,2.548-5.75,5.682c0,6.685,5.259,11.276,5.483,11.469c0.152,0.132,0.382,0.132,0.534,0c0.224-0.193,5.481-4.784,5.483-11.469C15.75,3.923,13.171,1.375,10,1.375 M10,17.653c-1.064-1.024-4.929-5.127-4.929-10.596c0-2.68,2.212-4.861,4.929-4.861s4.929,2.181,4.929,4.861C14.927,12.518,11.063,16.627,10,17.653 M10,3.839c-1.815,0-3.286,1.47-3.286,3.286s1.47,3.286,3.286,3.286s3.286-1.47,3.286-3.286S11.815,3.839,10,3.839 M10,9.589c-1.359,0-2.464-1.105-2.464-2.464S8.641,4.661,10,4.661s2.464,1.105,2.464,2.464S11.359,9.589,10,9.589">
+                        </path>
+                    </svg><br><span>Dashboard</span></label>
+            </li>
+
+            <li title="Trip"><label for="tab3" role="button"><img src="./static/img/navigator.png" height="28"
+                        width="28">
+                    <br><span>Trip</span></label>
+            </li>
+
+            <li title="Community"><label for="tab4" role="button"><img src="./static/img/network.png" height="28"
+                        width="28">
+                    <br><span>Community</span></label>
+            </li>
+        </ul>
+        <!-- 
+  勾勾: <path d="M14,2A8,8 0 0,0 6,10A8,8 0 0,0 14,18A8,8 0 0,0 22,10H20C20,13.32 17.32,16 14,16A6,6 0 0,1 8,10A6,6 0 0,1 14,4C14.43,4 14.86,4.05 15.27,4.14L16.88,2.54C15.96,2.18 15,2 14,2M20.59,3.58L14,10.17L11.62,7.79L10.21,9.21L14,13L22,5M4.93,5.82C3.08,7.34 2,9.61 2,12A8,8 0 0,0 10,20C10.64,20 11.27,19.92 11.88,19.77C10.12,19.38 8.5,18.5 7.17,17.29C5.22,16.25 4,14.21 4,12C4,11.7 4.03,11.41 4.07,11.11C4.03,10.74 4,10.37 4,10C4,8.56 4.32,7.13 4.93,5.82Z"/>
+  卡車: <path d="M3,4A2,2 0 0,0 1,6V17H3A3,3 0 0,0 6,20A3,3 0 0,0 9,17H15A3,3 0 0,0 18,20A3,3 0 0,0 21,17H23V12L20,8H17V4M10,6L14,10L10,14V11H4V9H10M17,9.5H19.5L21.47,12H17M6,15.5A1.5,1.5 0 0,1 7.5,17A1.5,1.5 0 0,1 6,18.5A1.5,1.5 0 0,1 4.5,17A1.5,1.5 0 0,1 6,15.5M18,15.5A1.5,1.5 0 0,1 19.5,17A1.5,1.5 0 0,1 18,18.5A1.5,1.5 0 0,1 16.5,17A1.5,1.5 0 0,1 18,15.5Z" />
+  -->
+
+        <!-- Tab 列表 End -->
+
+        <div class="slider">
+            <div class="indicator"></div>
+        </div>
+
+        <!-- Tab 內容 Start -->
+        <div class="content">
+            <section>
+                <h2>Station Info</h2>
+                <div class="container">
+                    <div id="table1" style="width: 100%;"></div>
+                </div>
+
+            </section>
+
+            <section>
+                <h2>Dashboard</h2>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-7">
+                            <h3>Rent & Return of Ubike Station </h3>
+                            <div id="map1" style="height: 520;"></div>
+                        </div>
+                        <div class="col-5">
+                            <div class="timeseries" id="ts1">
+                            </div>
+                        </div>
+                        <div style="height: 30;"></div>
+                        <div class="row">
+                            <div id="heatmap_rent"></div>
+                            <div id="heatmap_return"></div>
+                        </div>
+                    </div>
+            </section>
+
+            <section>
+                <h2>Trip</h2>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-7">
+                            <div id="map2" class="map" style="height: 450;"></div>
+                        </div>
+                        <div class="col-5">
+                            <div class='ccle'>
+                                <div id="select_list_weekday"></div>
+                                <div id="select_list_time"></div>
+                                <div id="select_result">當前選擇: </div>
+                            </div>
+                            <br>
+                            <h3 style="font-size: 30px; text-align: center; line-height: 40px; height: 40px;">Trip
+                                infomation</h3>
+                            <div id="trips_info_rent"
+                                style="color: #434742b3; font-size: 30px; text-align: center; line-height: 70px; height: 70px;">
+                                請將滑鼠移到線條上...</div>
+                            <center><img src="./static/img/down-arrow.png" height="28" width="28"
+                                    style="text-align: center;"></center>
+                            <div id="trips_info_return"
+                                style="color: #434742b3; font-size: 30px; text-align: center; line-height: 70px; height: 70px;">
+                                請將滑鼠移到線條上...</div>
+                            <div id="trips_info_count"
+                                style="color: #434742b3; font-size: 100px; text-align: center; line-height: 100px; height: 100px;">
+                            </div>
+                        </div>
+                    </div>
+                    <h3 style="font-size: 30px; text-align: center; line-height: 100px; height: 100px;">Top 10</h3>
+                    <div id="coor_plot" style="width: 100%; height: 100;"></div>
+                </div>
+            </section>
+
+            <section>
+                <h2>Community</h2>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-8">
+                            <div id="map3" class="map"></div>
+                        </div>
+                        <div class="col-4">
+                            <div class='ccle'>
+                                <div> 🕒 選擇日期 </div>
+                                <div id="select_list"></div>
+                            </div>
+                            <div id="myHour"
+                                style="color: #434742b3; font-size: 120px; text-align: center; line-height: 200px; height: 200px;">
+                            </div>
+                            <div style="text-align: center; line-height: 200px;">
+                                <button id='restart_button' type="button" class="btn btn-outline-secondary btn-lg"
+                                    style="width: 100%">Restart</button>
+                            </div>
+                            <br>
+                            <div class='ccle'>
+                                <div> 🏃🏻 更新速度 : <input type="range" name="mySlider" id="mySlider" min="100" max="2000"
+                                        value="1000"></div>
+                                <div id="speed_freq"> (1 秒) </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <!-- Tab 內容 End -->
+
+    </div>
+
+    <!-- 
+<script>
+  let d;
+  d3.csv("data/spot_info.csv", function(error, data) {
+    d = data;
+  })
+</script> 
+-->
+    <script src="static/js/main_controll.js"></script>
+
+</body>

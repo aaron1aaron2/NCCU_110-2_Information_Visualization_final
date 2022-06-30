@@ -1,0 +1,53 @@
+div.map { 
+    height: 700px; 
+}
+
+div#heatmap_return svg {
+	width: 100%;
+}
+div#heatmap_return {
+	font-size:20px;
+	text-align: center;
+    line-height: 1.8em;
+}
+
+div#heatmap_rent svg {
+	width: 100%;
+}
+div#heatmap_rent {
+	font-size:20px;
+	text-align: center;
+    line-height: 1.5em;
+}
+
+div.timeseries svg {
+	width: 100%;
+}
+div.timeseries {
+	font-size:20px;
+	text-align: center;
+    line-height: 1.5em;
+}
+
+/* div並排 */
+.ccle {
+	margin: 0px auto;
+	text-align: center;
+}
+.ccle div {
+	display: inline-block;
+	vertical-align: top;
+	/* width: 50px; */
+	height: 20px;
+	border-radius: 3px;
+	margin: 2px;
+    font-size:20px;
+    line-height: 1.5em;
+}
+.ccle .brth {
+	background: #1CB990;
+	color: #fff;
+	cursor: help;
+	line-height: 20px;
+	border-radius: 20px;
+}
